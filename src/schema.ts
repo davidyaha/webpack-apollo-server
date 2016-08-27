@@ -2,6 +2,7 @@ import {
     GraphQLObjectType,
     GraphQLString,
     GraphQLSchema,
+    GraphQLNonNull,
 } from "graphql";
 
 const QueryType = new GraphQLObjectType({
@@ -33,21 +34,14 @@ const MutationType = new GraphQLObjectType({
         login: {
             args: {
                 password: { // NEVER SEND OR SEND PASSWORDS PLAIN! NEVER!
-                    type: GraphQLString,
+                    type: new GraphQLNonNull(GraphQLString),
                 },
                 username: {
-                    type: GraphQLString,
+                    type: new GraphQLNonNull(GraphQLString),
                 },
             },
             type: GraphQLString,
             resolve(root: undefined, args: any, ctx) {
-                if ( undefined === args.username ) {
-                    throw new Error("Username is missing");
-                }
-                if ( undefined === args.password ) {
-                    throw new Error("Password is missing");
-                }
-
                 return ctx.login(args.username, args.password);
             },
         },

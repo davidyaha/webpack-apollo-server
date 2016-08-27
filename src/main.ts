@@ -37,7 +37,6 @@ const GRAPHIQL_ROUTE = "/graphiql";
 // TODO: Find a decent users/accounts library, and replace it with it.
 // passport doesn't support authenticating without being a middlewere.
 const loginMethod = (username, password) => {
-    console.log(`Authenticating ${username}`);
     if ( (username !== USER_STORE.username) ||
          (password !== USER_STORE.password ) ) {
         throw new Error("Incorrect Credentials");
